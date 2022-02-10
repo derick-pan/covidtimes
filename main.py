@@ -1,9 +1,12 @@
 import os
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.firefox import GeckoDriverManager
+# from selenium.webdriver.common.keys import Keys
+# from webdriver_manager.chrome import ChromeDriverManager
+# from webdriver_manager.firefox import GeckoDriverManager
 from dotenv import load_dotenv
-import time
+# import time
+from time import sleep
+
 driver = webdriver.Chrome()
 load_dotenv()
 
@@ -12,40 +15,21 @@ URL = "https://studenthealth.ucsc.edu/"
 EMAIL = os.getenv("EMAIL")
 PASSWORD = os.getenv("PASSWORD")
 
-
-def site_login():
-    driver.get(URL)
+driver.get(URL)
 
 
-class EmessengerLogin():
-    def __init__(self, email, password, browser='Chrome'):
-        # Store credentials for login
-        self.email = email
-        self.password = password
-        if browser == 'Chrome':
-            self.driver = webdriver.Chrome(
-                executable_path=ChromeDriverManager().install())
-        elif browser == 'Firefox':
-            self.driver = webdriver.Firefox(
-                executable_path=GeckoDriverManager().install())
-        self.driver.get(URL)
-        time.sleep(1)  # Wait for some time to load
-        print(EMAIL)
-        print(PASSWORD)
-
-    def login(self):
-        email = self.driver.find_element_by_id("email")
-        email.send_keys(self.email)
-
-        password = self.driver.find_element_by_id("pass")
-        password.send_keys(self.password)
-
-        self.driver.find_element_by_id("loginbutton").click()
+email = driver.find_element_by_id("username")
+email.send_keys(EMAIL)
 
 
-if __name__ == '__main__':
-    # Enter your login credentials here
-    UCSClogin = EmessengerLogin(
-        email=EMAIL, password=PASSWORD, browser='Chrome')
-    UCSClogin.login()
-    driver.quit()
+passw = driver.find_element_by_id("password")
+passw.send_keys(PASSWORD)
+
+
+signin = driver.find_element_by_name("_eventId_proceed")
+signin.click()
+
+sleep(100)  # Wait for you to fuckin do duo mobile
+
+
+# driver.quit()

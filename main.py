@@ -40,7 +40,7 @@ date.select_by_value('30')
 
 year = driver.find_element_by_id("dtDOBYR")
 year.send_keys('2002')
-
+ 
 signin = driver.find_element_by_name("cmdStandardProceed")
 signin.click()
 
